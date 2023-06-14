@@ -1,10 +1,19 @@
+<?php
+$bt_layout_class = "col-md-8";
+if (!is_active_sidebar("sidebar_1")) {
+ $bt_layout_class = "col-md-10 offset-md-1";
+}
+
+?>
+
+
 <?php get_header(); ?>
 
 <body <?php body_class(); ?>>
  <?php get_template_part("/template-parts/common/hero") ?>
  <div class="container">
   <div class="row">
-   <div class="col-md-8">
+   <div class="<?php echo $bt_layout_class; ?>">
     <div class="posts">
      <?php
      while (have_posts()) {
@@ -71,13 +80,19 @@
 
     </div>
    </div>
-   <div class="col-md-4">
-    <?php
-    if (is_active_sidebar("sidebar_1")) {
-     dynamic_sidebar("sidebar_1");
-    }
-    ?>
-   </div>
+   <?php
+   if (is_active_sidebar("sidebar_1")) :
+   ?>
+    <div class="col-md-4">
+     <?php
+     if (is_active_sidebar("sidebar_1")) {
+      dynamic_sidebar("sidebar_1");
+     }
+     ?>
+    </div>
+   <?php
+   endif;
+   ?>
   </div>
  </div>
  <?php get_footer(); ?>

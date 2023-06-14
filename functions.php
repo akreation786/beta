@@ -152,3 +152,21 @@ function bt_menu_item_class($classes, $item)
   return $classes;
 }
 add_filter("nav_menu_css_class", "bt_menu_item_class", 10, 2);
+
+// filter for class remove from body_class and post_class
+
+function bt_body_class($classes)
+{
+  unset($classes[array_search("custom-background", $classes)]);
+  unset($classes[array_search("single-format-audio", $classes)]);
+  return $classes;
+}
+add_filter("body_class", "bt_body_class");
+
+
+function bt_post_class($classes)
+{
+  unset($classes[array_search("format-standard", $classes)]);
+  return $classes;
+}
+add_filter("post_class", "bt_post_class");
