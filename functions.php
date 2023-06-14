@@ -11,6 +11,8 @@ function bt_bootstrapping()
 {
   load_theme_textdomain("bt");
   add_theme_support("post-thumbnails");
+  add_theme_support("post-formats", array("image", "quote", "video", "audio", "link"));
+  add_theme_support("dashicons");
   add_theme_support("title-tag)");
   $bt_custom_header_details = array(
     'header-text' => true,
@@ -74,9 +76,9 @@ add_action("wp_head", "bt_about_page_template_banner", 11);
 
 function bt_assets()
 {
-  wp_enqueue_style("bt", get_stylesheet_uri(), null, VERSION);
   wp_enqueue_style("bootstrap", "//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
   wp_enqueue_style("feather-light", "//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css");
+  wp_enqueue_style("bt", get_stylesheet_uri(), null, VERSION);
 
   wp_enqueue_script("bt-main-js", get_theme_file_uri() . "/assets/main.js", array("jquery", "feather-light-js"), null, VERSION, false);
   wp_enqueue_script("feather-light-js", "//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js", array("jquery"), "0.0.1", false);
