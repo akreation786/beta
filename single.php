@@ -25,22 +25,40 @@ if (!is_active_sidebar("sidebar_1")) {
          <div class="col-md-12">
           <h2 class="post-title "><?php the_title() ?></h2>
           <p>
-           <strong><?php the_author() ?></strong><br />
+           <strong><?php the_author_posts_link(); ?></strong><br />
            <?php echo get_the_date(); ?>
           </p>
          </div>
         </div>
         <div class="row">
          <div class="col-md-12">
-          <p>
+          <div class="slider">
            <?php
-           //$thumbnail_url = get_the_post_thumbnail_url(null, "large");
-           // echo '<a href="'.$thumbnail_url.'" data-featherlight="myimage.png">';
-           echo '<a class="popup" href="#" data-featherlight="image">';
-           the_post_thumbnail("large", array("class" => "img-fluid"));
-           echo '</a>';
+           if (class_exists('Attachments')) {
+            $attachments = new Attachments('slider');
+            if ($attachments->exist()) {
+             while ($attachment = $attachments->get()) { ?>
+              <div>
+               <?php echo $attachments->image('large'); ?>
+              </div>
+           <?php
+             }
+            }
+           }
            ?>
-          </p>
+          </div>
+          <div>
+           <?php
+           // for attachement file plugin 
+           if (!class_exists('Attachments')) {
+            //$thumbnail_url = get_the_post_thumbnail_url(null, "large");
+            // echo '<a href="'.$thumbnail_url.'" data-featherlight="myimage.png">';
+            echo '<a class="popup" href="#" data-featherlight="image">';
+            the_post_thumbnail("large", array("class" => "img-fluid"));
+            echo '</a>';
+           }
+           ?>
+          </div>
           <?php
           the_content();
 
@@ -51,6 +69,23 @@ if (!is_active_sidebar("sidebar_1")) {
           echo "<br/>";
           previous_post_link();
           ?>
+         </div>
+         <div class="author_section">
+          <div class="row">
+           <div class="col-md-2">
+            <?php
+            echo get_avatar(get_the_author_meta("ID"));
+            ?>
+           </div>
+           <div class="col-md-10">
+            <h4>
+             <?php echo get_the_author_meta("display_name"); ?>
+            </h4>
+            <p>
+             <?php echo get_the_author_meta("description"); ?>
+            </p>
+           </div>
+          </div>
          </div>
          <?php if (comments_open()) : ?>
           <div class="col-md-12">

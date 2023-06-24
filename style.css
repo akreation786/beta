@@ -91,3 +91,9 @@ h2.post-title {
  color: #ddd;
  font-size: 90px;
 }
+.author_page{
+ margin-bottom: 10px;
+}
+.author_section{
+ border: 1px solid #ccc;
+}

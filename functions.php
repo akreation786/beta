@@ -1,4 +1,10 @@
 <?php
+// attachment plugin check 
+if (class_exists('Attachments')) {
+  require_once("lib/attachment.php");
+}
+
+
 //dynamic Style CSS Version for cache.
 if (site_url() == "http://localhost/beta") {
   define("VERSION", time());
@@ -78,10 +84,12 @@ function bt_assets()
 {
   wp_enqueue_style("bootstrap", "//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
   wp_enqueue_style("feather-light", "//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css");
+  wp_enqueue_style("tns-slider", "//cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css");
   wp_enqueue_style("bt", get_stylesheet_uri(), null, VERSION);
 
-  wp_enqueue_script("bt-main-js", get_theme_file_uri() . "/assets/main.js", array("jquery", "feather-light-js"), null, VERSION, false);
+  wp_enqueue_script("tns-js", "//cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js", null, "0.0.1", false);
   wp_enqueue_script("feather-light-js", "//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js", array("jquery"), "0.0.1", false);
+  wp_enqueue_script("bt-main-js", get_theme_file_uri() . "/assets/main.js", null, VERSION, false);
 }
 add_action("wp_enqueue_scripts", "bt_assets");
 
