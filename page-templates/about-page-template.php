@@ -23,6 +23,38 @@
                          </div>
                      </div>
                      <div class="row">
+                         <?php
+                            if (class_exists("Attachments")) {
+                            ?>
+                             <h3><?php echo _e("Testimonials", "bt"); ?></h3>
+
+                         <?php
+                            }
+                            ?>
+                         <div class="col-md-8 offset-md-2">
+                             <div class="testimonials slider text-center">
+                                 <?php
+                                    if (class_exists("Attachments")) {
+                                        $attachments = new Attachments('testimonials');
+                                        if ($attachments->exist()) {
+                                            while ($attachment = $attachments->get()) { ?>
+                                             <div>
+                                                 <?php echo $attachments->image('thumbnail'); ?>
+                                                 <h4><?php echo esc_html($attachments->field("name")); ?></h4>
+                                                 <p><?php echo esc_html($attachments->field("testimonial")); ?></p>
+                                                 <p><?php echo esc_html($attachments->field("position")); ?>
+                                                     <strong></strong><?php echo esc_html($attachments->field("company")); ?></strong>
+                                                 </p>
+                                             </div>
+                                 <?php
+                                            }
+                                        }
+                                    }
+                                    ?>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row">
                          <div class="col-md-4">
                              <p>
                                  <strong><?php the_author() ?></strong><br />
@@ -52,6 +84,38 @@
                              </p>
                          </div>
                      </div>
+
+                     <?php
+                        if (class_exists("Attachments")) {
+                        ?>
+                         <h3><?php echo _e("Team Member", "bt"); ?></h3>
+
+                     <?php
+                        }
+                        ?>
+                     <?php
+                        if (class_exists("Attachments")) {
+                        ?>
+                         <div class="row text-center">
+                             <?php
+                                $attachments = new Attachments('team');
+                                if ($attachments->exist()) {
+                                    while ($attachment = $attachments->get()) { ?>
+                                     <div class="col-md-4 ">
+                                         <?php echo $attachments->image('medium'); ?>
+                                         <h4><?php echo esc_html($attachments->field("name")); ?></h4>
+                                         <p><?php echo esc_html($attachments->field("position")); ?></p>
+                                         <p><?php echo esc_html($attachments->field("email")); ?></p>
+                                         <p><?php echo esc_html($attachments->field("bio")); ?></p>
+                                     </div>
+                             <?php
+                                    }
+                                }
+                                ?>
+                         </div>
+                     <?php
+                        }
+                        ?>
 
                  </div>
              </div>

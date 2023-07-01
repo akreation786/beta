@@ -20,6 +20,7 @@ function bt_bootstrapping()
   add_theme_support("post-formats", array("image", "quote", "video", "audio", "link"));
   add_theme_support("dashicons");
   add_theme_support("title-tag)");
+  add_theme_support( 'html5', array( 'search-form' ) );
   $bt_custom_header_details = array(
     'header-text' => true,
     'default-text-color' => '#222',
@@ -178,3 +179,17 @@ function bt_post_class($classes)
   return $classes;
 }
 add_filter("post_class", "bt_post_class");
+
+
+
+// Search text highlight 
+function alpha_highlight_search_results($text){
+  if(is_search()){
+      $pattern = '/('. join('|', explode(' ', get_search_query())).')/i';
+      $text = preg_replace($pattern, '<span class="search-highlight">\0</span>', $text);
+  }
+  return $text;
+}
+add_filter('the_content', 'alpha_highlight_search_results');
+add_filter('the_excerpt', 'alpha_highlight_search_results');
+add_filter('the_title', 'alpha_highlight_search_results');

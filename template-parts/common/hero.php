@@ -30,6 +30,21 @@
 
                 </div>
             </div>
+            <div class="col-md-12 text-center">
+                <div class="bt_search">
+                    <?php
+                    if (is_search()) {
+                    ?>
+                        <h3>You Searched for: <?php the_search_query(); ?></h3>
+
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    echo get_search_form();
+                    ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>
