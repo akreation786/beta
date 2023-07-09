@@ -20,7 +20,7 @@ function bt_bootstrapping()
   add_theme_support("post-formats", array("image", "quote", "video", "audio", "link"));
   add_theme_support("dashicons");
   add_theme_support("title-tag)");
-  add_theme_support( 'html5', array( 'search-form' ) );
+  add_theme_support('html5', array('search-form'));
   $bt_custom_header_details = array(
     'header-text' => true,
     'default-text-color' => '#222',
@@ -47,34 +47,37 @@ function bt_about_page_template_banner()
   if (is_page()) {
     $bt_feat_image = get_the_post_thumbnail_url(null, "large");
 ?>
-    <style>
-      .page-header {
-        background-image: url(<?php echo $bt_feat_image; ?>)
-      }
-    </style>
-    <?php
+<style>
+.page-header {
+ background-image: url(<?php echo $bt_feat_image; ?>)
+}
+</style>
+<?php
   }
   if (is_front_page()) {
     if (current_theme_supports("custom-header")) {
     ?>
-      <style>
-        .header {
-          background-image: url(<?php echo header_image(); ?>);
-          background-repeat: no-repeat;
-          background-size: cover;
-          margin-bottom: 40px;
-        }
+<style>
+.header {
+ background-image: url(<?php echo header_image();
+ ?>);
+ background-repeat: no-repeat;
+ background-size: cover;
+ margin-bottom: 40px;
+}
 
-        .header h1.heading a,
-        h3.tagline {
-          color: #<?php echo get_header_textcolor(); ?>;
-          <?php
-          if (!display_header_text()) {
-            echo "display: none";
-          }
-          ?>
-        }
-      </style>
+.header h1.heading a,
+h3.tagline {
+ color: #<?php echo get_header_textcolor();
+ ?>;
+
+ <?php if ( !display_header_text()) {
+  echo "display: none";
+ }
+
+ ?>
+}
+</style>
 <?php
     }
   }
@@ -183,13 +186,18 @@ add_filter("post_class", "bt_post_class");
 
 
 // Search text highlight 
-function alpha_highlight_search_results($text){
-  if(is_search()){
-      $pattern = '/('. join('|', explode(' ', get_search_query())).')/i';
-      $text = preg_replace($pattern, '<span class="search-highlight">\0</span>', $text);
+function alpha_highlight_search_results($text)
+{
+  if (is_search()) {
+    $pattern = '/(' . join('|', explode(' ', get_search_query())) . ')/i';
+    $text = preg_replace($pattern, '<span class="search-highlight">\0</span>', $text);
   }
   return $text;
 }
 add_filter('the_content', 'alpha_highlight_search_results');
 add_filter('the_excerpt', 'alpha_highlight_search_results');
 add_filter('the_title', 'alpha_highlight_search_results');
+
+
+/// off srcset in image
+add_filter("wp_calculate_image_srcset", "__return_null");
