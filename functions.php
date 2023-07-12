@@ -1,4 +1,7 @@
 <?php
+require_once get_theme_file_path('/inc/tgm.php');
+require_once get_theme_file_path('/inc/acf-mb.php');
+
 // attachment plugin check 
 if (class_exists('Attachments')) {
   require_once("lib/attachment.php");
@@ -47,37 +50,37 @@ function bt_about_page_template_banner()
   if (is_page()) {
     $bt_feat_image = get_the_post_thumbnail_url(null, "large");
 ?>
-<style>
-.page-header {
- background-image: url(<?php echo $bt_feat_image; ?>)
-}
-</style>
-<?php
+    <style>
+      .page-header {
+        background-image: url(<?php echo $bt_feat_image; ?>)
+      }
+    </style>
+    <?php
   }
   if (is_front_page()) {
     if (current_theme_supports("custom-header")) {
     ?>
-<style>
-.header {
- background-image: url(<?php echo header_image();
- ?>);
- background-repeat: no-repeat;
- background-size: cover;
- margin-bottom: 40px;
-}
+      <style>
+        .header {
+          background-image: url(<?php echo header_image();
+                                ?>);
+          background-repeat: no-repeat;
+          background-size: cover;
+          margin-bottom: 40px;
+        }
 
-.header h1.heading a,
-h3.tagline {
- color: #<?php echo get_header_textcolor();
- ?>;
+        .header h1.heading a,
+        h3.tagline {
+          color: #<?php echo get_header_textcolor();
+                  ?>;
 
- <?php if ( !display_header_text()) {
-  echo "display: none";
- }
+          <?php if (!display_header_text()) {
+            echo "display: none";
+          }
 
- ?>
-}
-</style>
+          ?>
+        }
+      </style>
 <?php
     }
   }
@@ -201,3 +204,7 @@ add_filter('the_title', 'alpha_highlight_search_results');
 
 /// off srcset in image
 add_filter("wp_calculate_image_srcset", "__return_null");
+
+
+// ACF Show Admin menu off 
+// add_filter('acf/settings/show_admin', '__return_false');

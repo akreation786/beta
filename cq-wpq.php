@@ -14,25 +14,25 @@
         <?php
         $paged = get_query_var("paged") ? get_query_var("paged") : 1;
         $posts_per_page = 3;
-        // $post_ids = array(1, 116, 11, 100, 98, 103, 93);
+        $post_ids = array(1, 116, 11, 100, 98, 103, 93);
         $_p = new WP_Query(array(
-            // 'category_name' => 'bangla',
-            // 'tag' => 'dhaka',
+            // // 'category_name' => 'bangla',
+            // // 'tag' => 'dhaka',
             'posts_per_page' => $posts_per_page,
             'paged' => $paged,
-            'text_query' => array(
-                'relation' => 'OR',
+            'meta_query' => array(
+                'ralation' => 'AND',
                 array(
-                    'taxonomy' => 'category',
-                    'field' => 'slug',
-                    'terms' => array('BANGLA')
+                    'key' => 'featured',
+                    'value' => '1',
+                    'compare' => '=',
                 ),
                 array(
-                    'taxonomy' => 'post_tag',
-                    'field' => 'slug',
-                    'terms' => array('blog')
-                ),
-            ),
+                    'key' => 'hero',
+                    'value' => '1',
+                    'compare' => '=',
+                )
+            )
         ));
         while ($_p->have_posts()) {
             $_p->the_post();
